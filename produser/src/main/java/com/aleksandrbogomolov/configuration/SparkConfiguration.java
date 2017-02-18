@@ -20,6 +20,6 @@ public class SparkConfiguration {
 
   public SparkConfiguration() {
     Logger logger = Logger.getRootLogger();
-    logger.setLevel(Level.WARN);
+    logger.setLevel(Level.ERROR);
   }
 }
