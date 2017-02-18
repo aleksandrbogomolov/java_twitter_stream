@@ -1,6 +1,7 @@
 package com.aleksandrbogomolov.stream;
 
 import com.aleksandrbogomolov.configuration.SparkConfiguration;
+import com.aleksandrbogomolov.helper.Publisher;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.twitter.TwitterUtils;
 import twitter4j.Status;
@@ -19,7 +20,7 @@ public class FilterStream {
     JavaReceiverInputDStream<Status> stream = TwitterUtils
         .createStream(configuration.streamingContext, configuration.auth, filters);
     stream.foreachRDD(rdd -> {
-      rdd.collect().stream().forEach(s -> System.out.println(s.getText()));
+      rdd.collect().forEach(Publisher::publish);
       return null;
     });
     configuration.streamingContext.start();
