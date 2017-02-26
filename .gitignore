@@ -1,0 +1,10 @@
+
+.idea/
+consumer/consumer.iml
+consumer/src/main/resources/
+consumer/src/test/
+consumer/target/
+java_twitter_stream.iml
+produser/produser.iml
+produser/src/test/
+produser/target/
