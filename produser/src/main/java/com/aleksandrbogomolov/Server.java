@@ -9,8 +9,6 @@ public class Server extends AbstractVerticle {
 
   private final String[] filters = {"#java", "#scala", "#groovy", "#kotlin"};
 
-  private final SparkConfiguration configuration = new SparkConfiguration();
-
   private final Publisher publisher = new Publisher();
 
   private FilterStream stream;
@@ -20,7 +18,7 @@ public class Server extends AbstractVerticle {
     vertx.deployVerticle(publisher);
     vertx.createHttpServer().requestHandler(event -> {
       if (event.path().contains("start")) {
-        stream = new FilterStream(filters, publisher, configuration);
+        stream = new FilterStream(filters, publisher, new SparkConfiguration());
         new Thread(stream).start();
       } else if (event.path().contains("stop")) {
         stream.stopStream();
