@@ -3,23 +3,39 @@ body {
     padding: 0;
 }
 
-#filter-form {
-    margin: 200px auto;
+#filterForm {
     width: 500px;
+    margin: 200px auto;
 }
 
-#filter-form input {
+#filterForm input {
     width: 450px;
     height: 20px;
     margin: 5px;
     border: solid black 1px;
 }
 
-#messages {
-    width: 80%;
-    margin: 50px auto;
+/*#messages {*/
+    /*width: 60%;*/
+    /*margin-top: 50px;*/
+    /*margin-left: 20%;*/
+    /*float: left;*/
+/*}*/
+
+#rightColon {
+    margin-left: 65%;
+    width: 30%;
 }
 
 p {
-    border-bottom: solid black 1px;
+    border-bottom: solid darkcyan 1px;
+}
+
+#stopButton {
+    width: 120px;
+    height: 25px;
+    margin-top: 20px;
+    font-size: 15px;
+    background-color: darkcyan;
+    border: none;
 }
