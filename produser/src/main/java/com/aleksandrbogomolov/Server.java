@@ -1,24 +1,23 @@
 package com.aleksandrbogomolov;
 
 import com.aleksandrbogomolov.configuration.SparkConfiguration;
-import com.aleksandrbogomolov.helper.Publisher;
+import com.aleksandrbogomolov.helper.Helper;
 import com.aleksandrbogomolov.stream.FilterStream;
 import io.vertx.core.AbstractVerticle;
 
 public class Server extends AbstractVerticle {
 
-  private final String[] filters = {"#java", "#scala", "#groovy", "#kotlin"};
-
-  private final Publisher publisher = new Publisher();
+  private final Helper helper = new Helper();
 
   private FilterStream stream;
 
   @Override
   public void start() throws Exception {
-    vertx.deployVerticle(publisher);
+    vertx.deployVerticle(helper);
     vertx.createHttpServer().requestHandler(event -> {
       if (event.path().contains("start")) {
-        stream = new FilterStream(filters, publisher, new SparkConfiguration());
+        String[] filters = Helper.prepareFilters(event.absoluteURI());
+        stream = new FilterStream(filters, helper, new SparkConfiguration());
         new Thread(stream).start();
       } else if (event.path().contains("stop")) {
         stream.stopStream();
