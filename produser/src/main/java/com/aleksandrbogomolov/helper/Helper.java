@@ -14,7 +14,7 @@ public class Helper extends AbstractVerticle {
 
   private static final String[] DEFAULT_FILTERS = {"#java", "#scala", "#kotlin", "#groovy", "#haskell"};
 
-  private final Logger logger = Logger.getLogger(Helper.class);
+  private static final Logger LOGGER = Logger.getLogger(Helper.class);
 
   private final ObjectMapper mapper = new ObjectMapper();
 
@@ -23,19 +23,20 @@ public class Helper extends AbstractVerticle {
       String msg = mapper.writeValueAsString(status);
       vertx.eventBus().publish("stream", msg);
     } catch (JsonProcessingException e) {
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      LOGGER.error("Couldn't create JSON from Twitter status.");
+      throw new RuntimeException(e.getMessage());
     }
   }
 
   public static String[] prepareFilters(String rawUrl) {
     String filtersParam;
-    String rawFilters = null;
+    String rawFilters;
     try {
       filtersParam = URLDecoder.decode(rawUrl, "UTF-8").split("&")[1];
       rawFilters = filtersParam.split("=")[1];
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+      LOGGER.error("Unsupported encoding.");
+      throw new RuntimeException(e.getMessage());
     }
     return Optional.ofNullable(rawFilters.split(",")).orElse(DEFAULT_FILTERS);
   }
