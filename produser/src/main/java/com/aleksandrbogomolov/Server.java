@@ -7,12 +7,11 @@ import io.vertx.core.AbstractVerticle;
 
 public class Server extends AbstractVerticle {
 
-  private final Helper helper = new Helper();
-
   private FilterStream stream;
 
   @Override
   public void start() throws Exception {
+    final Helper helper = new Helper();
     vertx.deployVerticle(helper);
     vertx.createHttpServer().requestHandler(event -> {
       if (event.path().contains("start")) {
