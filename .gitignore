@@ -10,3 +10,5 @@ produser/src/test/
 produser/target/
 web/target/
 web/web.iml
+twit.xml
+.gitignore
